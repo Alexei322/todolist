@@ -10,7 +10,7 @@ const assignTask = (projectname, task) => {
   });
 };
 const initializeProject = (name) => {
-  if (checkIfPresent(name) === true) {
+  if (checkIfPresent(name) === false) {
     const myProject = {
       name: name,
       tasks: [],
@@ -20,11 +20,10 @@ const initializeProject = (name) => {
 };
 
 const checkIfPresent = (project) => {
-  let returnVal = true;
+  let returnVal = false;
   allItems.forEach((item) => {
     if (item.name === project) {
-      console.log("PRESENT");
-      returnVal = false;
+      returnVal = true;
     }
   });
   return returnVal;
@@ -41,4 +40,17 @@ const getItems = () => {
   return itemCopy;
 };
 
-export { initializeProject, outputItems, getItems };
+const getTasks = (projectname) => {
+  returnTasks = [];
+  const specificProject = allItems.find((item) => {
+    item.name === projectname;
+  });
+
+  allItems.forEach(item, () => {
+    if ((item.name = projectname)) {
+      returnTasks.push(item.tasks);
+    }
+  });
+};
+
+export { initializeProject, outputItems, getItems, checkIfPresent };

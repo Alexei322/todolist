@@ -3,6 +3,7 @@ import {
   initializeProject,
   outputItems,
   getItems,
+  checkIfPresent,
 } from "./projectsandtasks.js";
 
 const createProjectButton = document.querySelector(".createproject");
@@ -18,31 +19,39 @@ createProjectButton.addEventListener("click", (e) => {
 
 addProjectForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  console.log(projecttext.textContent);
-  const itemDiv = addNewProject(projecttext.value);
-  projects.appendChild(itemDiv);
-  const wowow = initializeProject(projecttext.value);
+  const projectValue = projecttext.value;
+  const itemDiv = addNewProject(projectValue);
+  if (checkIfPresent(projectValue) === false) {
+    projects.appendChild(itemDiv);
+  }
+  initializeProject(projectValue);
   outputItems();
 });
 
-const displayProjects = () => {
-  const allProjects = getItems();
-  allProjects.forEach(item, () => {
-    addNewProject({ name: item.name, tasks: item.tasks });
-  });
-  return allProjects;
-};
-
 const createProjectDiv = () => {
   const projectForm = document.createElement("div");
-  projectForm.classList.add("projectItem");
+  projectForm.classList.add("projectitem");
   return projectForm;
+};
+
+const createProject = (projectname) => {
+  const projectButton = document.createElement("button");
+  projectButton.classList.add("projectbutton", "btn", "btn-info");
+  projectButton.textContent = projectname;
+  return projectButton;
 };
 
 const addNewProject = (content) => {
   const projectItem = createProjectDiv();
-  projectItem.textContent = content;
+  const projectButton = createProject(content);
+  projectItem.append(projectButton);
   return projectItem;
+};
+
+const createTaskModal = () => {
+  const modal = document.createElement("div");
+  modal.classList.add("modal-dialog", "modal-dialog-centered");
+  return modal;
 };
 
 const createTask = (title, description, duedate, priority) => {

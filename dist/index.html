@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
     <title>Document</title>
   </head>
   <body>
@@ -15,16 +16,15 @@
       <div class="centersection">
         <div class="leftcenter">
           <ul class="icondescriprow">
-            <li>Inbox</li>
-            <li>Projects</li>
-            <li>Today</li>
-            <li>
+            <button class="btn btn-info">Inbox</button>
+            <button class="btn btn-info">Projects</button>
+            <button class="btn btn-info">Today</button>
               <form class="newproject hidden">
-                <input type="text" class="projecttext">
-                <input type="submit" class="submitproject"></button>
+                <input type="text" class="projecttext" required>
+                <input type="submit" class=" btn btn-info submitproject"></button>
               </form>
             </li>
-            <li><button class="createproject" type="button">Create new project!</button></li>
+            <li><button class="btn btn-info createproject" type="button">Create new project!</button></li>
           </ul>
           <div class="projects"></div>
        
@@ -32,7 +32,10 @@
       </div>
       <div class="rightcenter"></div>
       </div>
+    <div class="footer">
+      <p>Alexei Bradshaw 2022</p>
     </div>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="main.js" defer></script>
   </body>
 </html>

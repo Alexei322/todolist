@@ -10,11 +10,26 @@
   margin: 0;
 }
 
+.footer {
+  position: absolute;
+  font-family: "xenofont", "Segoe UI", Tahoma;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 5px;
+  background-color: black;
+  color: white;
+  font-size: 1.2rem;
+}
+
 .heading {
   background-color: black;
   font-family: "xenofont", "Segoe UI", Tahoma;
   min-height: 5vh;
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 1rem;
 }
@@ -26,7 +41,7 @@
 }
 
 .content {
-  background-color: plum;
+  background-color: white;
   min-height: 100vh;
 }
 
@@ -35,9 +50,13 @@
 }
 
 .leftcenter {
-  height: 100vh;
-  width: 15vw;
-  margin-top: 5rem;
+  background-color: #eee;
+  min-width: 300px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-wrap: wrap;
 }
 
 .rightcenter {
@@ -46,15 +65,14 @@
 
 .icondescriprow {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
   flex-direction: column;
   align-items: center;
 }
 .icondescriprow > li {
   list-style: none;
-}
-
-.createproject {
+  margin-top: 1rem;
 }
 
 .newproject {
@@ -78,4 +96,15 @@
   font-size: 1.2rem;
   gap: 0.2rem;
   align-items: center;
+}
+
+.projectitem {
+  display: flex;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.alltasks {
+  display: grid;
+  font-size: 50px;
 }
