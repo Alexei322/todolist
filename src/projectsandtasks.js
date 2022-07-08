@@ -40,6 +40,15 @@ const getItems = () => {
   return itemCopy;
 };
 
+const getProjects = () => {
+  const names = [];
+  allItems.forEach((item) => {
+    names.push(item.name);
+  });
+  console.log(names);
+  return names;
+};
+
 const getTasks = (projectname) => {
   returnTasks = [];
   const specificProject = allItems.find((item) => {
@@ -53,4 +62,10 @@ const getTasks = (projectname) => {
   });
 };
 
-export { initializeProject, outputItems, getItems, checkIfPresent };
+export {
+  initializeProject,
+  outputItems,
+  getItems,
+  checkIfPresent,
+  getProjects,
+};

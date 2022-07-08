@@ -4,6 +4,7 @@ import {
   outputItems,
   getItems,
   checkIfPresent,
+  getProjects,
 } from "./projectsandtasks.js";
 
 const createProjectButton = document.querySelector(".createproject");
@@ -12,6 +13,8 @@ const projects = document.querySelector(".projects");
 const projecttext = document.querySelector(".projecttext");
 const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
 const taskForm = document.querySelector(".taskform");
+const taskSection = document.querySelector(".colhome");
+const modalTasksDropdown = document.querySelector(".dropdown-menu");
 
 const alert = (message, type) => {
   const wrapper = document.createElement("div");
@@ -31,7 +34,9 @@ createProjectButton.addEventListener("click", (e) => {
 
 taskForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  outputForm(taskForm);
+  const myTask = createTaskDiv();
+  // myTask.textContent = outputForm(taskForm);
+  taskSection.appendChild(myTask);
 });
 
 addProjectForm.addEventListener("submit", (e) => {
@@ -40,21 +45,14 @@ addProjectForm.addEventListener("submit", (e) => {
   const itemDiv = addNewProject(projectValue);
   if (checkIfPresent(projectValue) === false) {
     projects.appendChild(itemDiv);
+    initializeProject(projectValue);
+    populateProjectsModal();
   } else {
     alert("Project already present!", "danger");
   }
-  initializeProject(projectValue);
+
   outputItems();
 });
-
-const outputForm = (formitem) => {
-  const formData = new FormData(taskForm);
-  const values = [];
-  for (let key of formData.keys()) {
-    values.push(formData.get(key));
-  }
-  console.log(values);
-};
 
 const createProjectDiv = () => {
   const projectForm = document.createElement("div");
@@ -82,6 +80,20 @@ const toggleActive = (item) => {
   } else {
     item.classList.add("hidden");
   }
+};
+
+const populateProjectsModal = () => {
+  modalTasksDropdown.textContent = "";
+  const projects = getProjects();
+  projects.forEach((item) => {
+    const listParent = document.createElement("li");
+    const listItem = document.createElement("a");
+    listItem.classList.add("dropdown-item");
+    listItem.href = "#";
+    listItem.textContent = item;
+    listParent.appendChild(listItem);
+    modalTasksDropdown.appendChild(listParent);
+  });
 };
 
 const createTaskDiv = () => {
