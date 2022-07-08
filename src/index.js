@@ -8,12 +8,10 @@ import {
 
 const createProjectButton = document.querySelector(".createproject");
 const addProjectForm = document.querySelector(".newproject");
-const submitProjectButton = document.querySelector(".newproject > button");
-const projectRow = document.querySelector(".icondescriprow");
 const projects = document.querySelector(".projects");
 const projecttext = document.querySelector(".projecttext");
-// const addTaskBut = document.querySelector(".addtaskbutton");
 const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+const taskForm = document.querySelector(".taskform");
 
 const alert = (message, type) => {
   const wrapper = document.createElement("div");
@@ -31,6 +29,11 @@ createProjectButton.addEventListener("click", (e) => {
   toggleActive(addProjectForm);
 });
 
+taskForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  outputForm(taskForm);
+});
+
 addProjectForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const projectValue = projecttext.value;
@@ -43,6 +46,15 @@ addProjectForm.addEventListener("submit", (e) => {
   initializeProject(projectValue);
   outputItems();
 });
+
+const outputForm = (formitem) => {
+  const formData = new FormData(taskForm);
+  const values = [];
+  for (let key of formData.keys()) {
+    values.push(formData.get(key));
+  }
+  console.log(values);
+};
 
 const createProjectDiv = () => {
   const projectForm = document.createElement("div");
@@ -64,14 +76,29 @@ const addNewProject = (content) => {
   return projectItem;
 };
 
-const createTask = (title, description, duedate, priority) => {
-  return { title, description, duedate, priority };
-};
-
 const toggleActive = (item) => {
   if (item.classList.contains("hidden")) {
     item.classList.remove("hidden");
   } else {
     item.classList.add("hidden");
   }
+};
+
+const createTaskDiv = () => {
+  const taskCol = document.createElement("div");
+  taskCol.classList.add("col");
+  const cardDiv = document.createElement("div");
+  cardDiv.classList.add("card");
+  const cardBody = document.createElement("div");
+  cardBody.classList.add("card-body");
+  const headingCard = document.createElement("h5");
+  headingCard.classList.add("card-title");
+  const carddescription = document.createElement("p");
+  carddescription.classList.add("carddescription");
+  const dateSection = document.createElement("p");
+  dateSection.classList.add("card-date");
+  cardBody.append(headingCard, carddescription, dateSection);
+  cardDiv.appendChild(cardBody);
+  taskCol.appendChild(cardDiv);
+  return taskCol;
 };

@@ -8,6 +8,7 @@
     <title>Document</title>
   </head>
   <body>
+    <div class="d-flex flex-column">
     <div class="container-fluid bg-dark d-flex justify-content-center">
       <div class="title">Todo list!</div>
     </div>
@@ -30,13 +31,14 @@
           </ul>
           <div class="projects"></div>
         </div>
-        <div class="container-fluid">
+        <div class="container-fluid pt-4">
           <div class="row">
             <div class="col">
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Task</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <p class="carddescription">Task description goes here!</h4>
+                  <p class="card-date">Date and time go here!</p>
                 </div>
               </div>
               
@@ -45,7 +47,8 @@
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Task</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <p class="carddescription">Task description goes here!</h4>
+                  <p class="card-date">Date and time go here!</p>
                 </div>
               </div>
             </div>
@@ -53,26 +56,18 @@
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Task</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <p class="carddescription">Task description goes here!</h4>
+                  <p class="card-date">Date and time go here!</p>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col">
-              1 of 3
-            </div>
-            <div class="col">
-              2 of 3
-            </div>
-            <div class="col">
-              3 of 3
-            </div>
-          </div>
+
         
       </div>
    
       </div>
+      <div>
 
       <div id="liveAlertPlaceholder"></div>
 
@@ -80,6 +75,7 @@
       <div class="modal fade" id="myFormModal" tabindex="-1" aria-labelledby="myFormModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
+            <form class="taskform">
             <div class="modal-header">
               <h5 class="modal-title" id="myFormModalLabel">Please enter task details</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -87,18 +83,27 @@
             <div class="modal-body">
               <div class="mb-3">
                 <label for="task-title" class="col-form-label">Title:</label>
-                <input type="text" class="form-control" id="task-title">
+                <input type="text" class="form-control" id="task-title" name="task-title" required>
               </div>
               <div class="mb-3">
                 <label for="message-text" class="col-form-label">Description:</label>
-                <textarea class="form-control" id="message-text"></textarea>
+                <textarea class="form-control" id="message-text" name="message-text" required></textarea>
               </div>
-            </form>
+              <div class="mb-3">
+                <label for="date-time" class="col-form-label">Date/time</label>
+                <input class= "form-control" id = "date-time" type="datetime-local" name="date-time" required>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" value = "" id="flexCheckDefault priority" name="priority" type="checkbox">
+                <label for="flexCheckDefault" class="form-check-label">High priority?</label>
+              </div>
+            
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="submit" class="btn btn-primary save-form" data-bs-dismiss="modal">Save changes</button>
             </div>
+          </form>
           </div>
         </div>
       </div>
