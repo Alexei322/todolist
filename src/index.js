@@ -6,6 +6,8 @@ import {
   getItems,
   checkIfPresent,
   getProjects,
+  assignTask,
+  getTasks,
 } from "./projectsandtasks.js";
 
 const createProjectButton = document.querySelector(".createproject");
@@ -16,6 +18,7 @@ const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
 const taskForm = document.querySelector(".taskform");
 const taskSection = document.querySelector(".colhome");
 const modalTasksDropdown = document.querySelector(".form-select");
+const allItemsButton = document.querySelector(".alltasksbutton");
 
 const alert = (message, type) => {
   const wrapper = document.createElement("div");
@@ -37,6 +40,7 @@ taskForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const formOut = [];
   const taskData = new FormData(taskForm);
+  const selectedProject = taskData.get("floatingSelect");
   for (let key of taskData.keys()) {
     let myObj = {};
     myObj.key = key;
@@ -44,9 +48,8 @@ taskForm.addEventListener("submit", (e) => {
     formOut.push(myObj);
   }
   console.log(formOut);
-  const myTask = createTaskDiv(formOut);
-  // myTask.textContent = outputForm(taskForm);
-  taskSection.appendChild(myTask);
+  assignTask(selectedProject, formOut);
+  console.log(getItems());
 });
 
 addProjectForm.addEventListener("submit", (e) => {
@@ -64,6 +67,29 @@ addProjectForm.addEventListener("submit", (e) => {
   outputItems();
 });
 
+allItemsButton.addEventListener("click", (e) => {
+  taskSection.textContent = "";
+  const allProjects = getProjects();
+  console.log(allProjects);
+  allProjects.forEach((project) => {
+    const projectTasks = getTasks(project);
+    projectTasks.forEach((task) => {
+      taskSection.appendChild(createTaskDiv(task));
+    });
+  });
+});
+
+const addNewProjectEventlistener = (projectButton) => {
+  projectButton.addEventListener("click", (e) => {
+    console.log(getTasks(projectButton.textContent));
+    const projectTasks = getTasks(projectButton.textContent);
+    taskSection.textContent = "";
+    projectTasks.forEach((taskArr) => {
+      taskSection.appendChild(createTaskDiv(taskArr));
+    });
+  });
+};
+
 const createProjectDiv = () => {
   const projectForm = document.createElement("div");
   projectForm.classList.add("projectitem");
@@ -74,6 +100,7 @@ const createProject = (projectname) => {
   const projectButton = document.createElement("button");
   projectButton.classList.add("projectbutton", "btn", "btn-dark");
   projectButton.textContent = projectname;
+  addNewProjectEventlistener(projectButton);
   return projectButton;
 };
 
@@ -95,12 +122,13 @@ const toggleActive = (item) => {
 const populateProjectsModal = () => {
   modalTasksDropdown.textContent = "";
   const projects = getProjects();
-  projects.forEach((item, index) => {
+  projects.forEach((item) => {
     const listItem = document.createElement("option");
-    listItem.value = index + 1;
+    listItem.value = item;
     listItem.textContent = item;
     modalTasksDropdown.appendChild(listItem);
   });
+  console.log(projects);
 };
 
 const createTaskDiv = (obj) => {
@@ -120,8 +148,10 @@ const createTaskDiv = (obj) => {
   dateSection.classList.add("card-date");
   dateSection.textContent = obj[2].value;
   const prioritySection = document.createElement("div");
-  prioritySection.classList.add("carddescription");
-  prioritySection.textContent = obj[4].value == "" ? "HIGH PRIORITY" : "";
+  if (obj[4]) {
+    prioritySection.classList.add("carddescription");
+    prioritySection.textContent = "HIGH PRIORITY";
+  }
   cardBody.append(headingCard, carddescription, dateSection, prioritySection);
   cardDiv.appendChild(cardBody);
   taskCol.appendChild(cardDiv);
