@@ -1,5 +1,5 @@
 import "./styles.css";
-import { formatDistance, subDays } from "date-fns";
+import { formatDistance, subDays, isDate, toDate } from "date-fns";
 import {
   initializeProject,
   outputItems,
@@ -44,7 +44,11 @@ taskForm.addEventListener("submit", (e) => {
   for (let key of taskData.keys()) {
     let myObj = {};
     myObj.key = key;
-    myObj.value = taskData.get(key);
+    if (myObj.key == "datetime") {
+      myObj.value = dataParser(taskData.get(key));
+    } else {
+      myObj.value = taskData.get(key);
+    }
     formOut.push(myObj);
   }
   console.log(formOut);
@@ -131,6 +135,11 @@ const populateProjectsModal = () => {
   console.log(projects);
 };
 
+const dataParser = (rawDate) => {
+  const parsedDate = Date.parse(rawDate);
+  console.log(toDate(parsedDate));
+  return toDate(parsedDate);
+};
 const createTaskDiv = (obj) => {
   const taskCol = document.createElement("div");
   taskCol.classList.add("col");
@@ -146,7 +155,7 @@ const createTaskDiv = (obj) => {
   carddescription.textContent = obj[1].value;
   const dateSection = document.createElement("p");
   dateSection.classList.add("card-date");
-  dateSection.textContent = obj[2].value;
+  dateSection.textContent = dataParser(obj[2].value);
   const prioritySection = document.createElement("div");
   if (obj[4]) {
     prioritySection.classList.add("carddescription");
