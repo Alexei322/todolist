@@ -49,19 +49,6 @@ const getProjects = () => {
   return names;
 };
 
-const getTasks = (projectname) => {
-  returnTasks = [];
-  const specificProject = allItems.find((item) => {
-    item.name === projectname;
-  });
-
-  allItems.forEach(item, () => {
-    if ((item.name = projectname)) {
-      returnTasks.push(item.tasks);
-    }
-  });
-};
-
 export {
   initializeProject,
   outputItems,
