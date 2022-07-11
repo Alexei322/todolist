@@ -8,6 +8,7 @@ import {
   getProjects,
   assignTask,
   getTasks,
+  getProjectsDueToday,
 } from "./projectsandtasks.js";
 
 const createProjectButton = document.querySelector(".createproject");
@@ -19,6 +20,7 @@ const taskForm = document.querySelector(".taskform");
 const taskSection = document.querySelector(".colhome");
 const modalTasksDropdown = document.querySelector(".form-select");
 const allItemsButton = document.querySelector(".alltasksbutton");
+const todayButton = document.querySelector(".todaybtn");
 
 const alert = (message, type) => {
   const wrapper = document.createElement("div");
@@ -81,6 +83,10 @@ allItemsButton.addEventListener("click", (e) => {
       taskSection.appendChild(createTaskDiv(task));
     });
   });
+});
+
+todayButton.addEventListener("click", (e) => {
+  console.log(getProjectsDueToday());
 });
 
 const addNewProjectEventlistener = (projectButton) => {

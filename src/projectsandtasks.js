@@ -1,3 +1,5 @@
+import { isEqual, isSameDay } from "date-fns";
+
 let allItems = [];
 const assignProject = (project) => {
   allItems.push(project);
@@ -52,6 +54,22 @@ const getTasks = (project) => {
   return myTasks.tasks;
 };
 
+const getProjectsDueToday = () => {
+  const todayTasks = [];
+  const todayDate = new Date();
+  allItems.forEach((item) => {
+    item.tasks.forEach((task) => {
+      console.log(task);
+      console.log(task.datetime, todayDate);
+      if (isSameDay(task.datetime, todayDate)) {
+        todayTasks.push(task);
+      }
+    });
+  });
+
+  return todayTasks;
+};
+
 export {
   initializeProject,
   outputItems,
@@ -60,4 +78,5 @@ export {
   getProjects,
   assignTask,
   getTasks,
+  getProjectsDueToday,
 };
