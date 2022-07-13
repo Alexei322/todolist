@@ -1,12 +1,19 @@
 import { isEqual, isSameDay } from "date-fns";
 
 let allItems = [];
+
+
+const setIntoLocal = (item, tasks) => {
+  localStorage.setItem(item, JSON.stringify(tasks));
+}
 const assignProject = (project) => {
   allItems.push(project);
+  setIntoLocal(project.name, project)
 };
 const assignTask = (projectname, task) => {
   const myProject = allItems.find((item) => item.name === projectname);
   myProject.tasks.push(task);
+  setIntoLocal(projectname, myProject)
 };
 
 const initializeProject = (name) => {
